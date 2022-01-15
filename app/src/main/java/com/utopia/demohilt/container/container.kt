@@ -14,4 +14,15 @@ class AppContainer {
 
   val userRepository = UserRepository(localDataSource, remoteDataSource)
 
+  val loginViewModelFactory = LoginViewModelFactory(userRepository)
+}
+
+interface Factory<T> {
+  fun create(): T
+}
+
+class LoginViewModelFactory(private val userRepository: UserRepository) : Factory<LoginViewModel> {
+  override fun create(): LoginViewModel {
+    return LoginViewModel(userRepository)
+  }
 }

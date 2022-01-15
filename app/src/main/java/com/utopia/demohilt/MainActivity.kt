@@ -11,6 +11,6 @@ class MainActivity : AppCompatActivity() {
     super.onCreate(savedInstanceState)
 
     val appContainer = (application as App).appContainer
-    loginViewModel = LoginViewModel(appContainer.userRepository)
+    loginViewModel = appContainer.loginViewModelFactory.create()
   }
 }
