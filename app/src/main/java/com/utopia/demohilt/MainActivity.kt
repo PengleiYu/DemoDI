@@ -2,8 +2,7 @@ package com.utopia.demohilt
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.utopia.demohilt.data.*
-import retrofit2.Retrofit
+import com.utopia.demohilt.data.LoginViewModel
 
 class MainActivity : AppCompatActivity() {
   private lateinit var loginViewModel: LoginViewModel
@@ -11,16 +10,7 @@ class MainActivity : AppCompatActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
 
-    val loginService = Retrofit.Builder()
-      .baseUrl("https://example.com")
-      .build()
-      .create(LoginRetrofitService::class.java)
-
-    val remoteDataSource = UserRemoteDataSource(loginService)
-    val localDataSource = UserLocalDataSource()
-
-    val userRepository = UserRepository(localDataSource, remoteDataSource)
-
-    loginViewModel = LoginViewModel(userRepository)
+    val appContainer = (application as App).appContainer
+    loginViewModel = LoginViewModel(appContainer.userRepository)
   }
 }
