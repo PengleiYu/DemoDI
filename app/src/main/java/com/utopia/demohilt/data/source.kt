@@ -7,6 +7,8 @@ class UserRepository(
   private val remoteDataSource: UserRemoteDataSource
 )
 
+class LoginUserData
+
 class UserLocalDataSource
 class UserRemoteDataSource(
   private val loginService: LoginRetrofitService

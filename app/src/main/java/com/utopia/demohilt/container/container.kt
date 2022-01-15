@@ -14,6 +14,12 @@ class AppContainer {
 
   val userRepository = UserRepository(localDataSource, remoteDataSource)
 
+  // FlowContainer，仅存在于登录流程中
+  var loginContainer: LoginContainer? = null
+}
+
+class LoginContainer(userRepository: UserRepository) {
+  val loginData = LoginUserData()
   val loginViewModelFactory = LoginViewModelFactory(userRepository)
 }
 
