@@ -6,6 +6,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ActivityComponent
 import dagger.hilt.android.qualifiers.ActivityContext
+import dagger.hilt.android.scopes.ActivityScoped
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import javax.inject.Inject
@@ -19,6 +20,7 @@ class AnalyticsServiceImpl @Inject constructor() : AnalyticsService {
   }
 }
 
+@ActivityScoped // 保证Activity生命周期内单例
 class AnalyticsAdapter @Inject constructor(
   @ActivityContext val context: Context,
   val service: AnalyticsService

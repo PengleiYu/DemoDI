@@ -13,6 +13,9 @@ class ExampleActivity : AppCompatActivity() {
   lateinit var adapter: AnalyticsAdapter
 
   @Inject
+  lateinit var adapter2: AnalyticsAdapter
+
+  @Inject
   lateinit var service: AnalyticsService
 
   @OtherInterceptorOkHttpClient
@@ -27,6 +30,7 @@ class ExampleActivity : AppCompatActivity() {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_example)
 
+    Log.d(TAG, "onCreate: adapter1=$adapter,adapter2=$adapter2")
     Log.d(TAG, "onCreate: adapter=$adapter, adapter.service=${adapter.service}")
     Log.d(TAG, "onCreate: adapter.context=${adapter.context}, activity=$this")
     Log.d(TAG, "onCreate: service=$service")
