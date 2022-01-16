@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.EntryPointAccessors
 import okhttp3.OkHttpClient
 import javax.inject.Inject
 
@@ -40,5 +41,16 @@ class ExampleActivity : AppCompatActivity() {
     val interceptors = okHttpClient.interceptors().joinToString { it.javaClass.name }
     Log.d(TAG, "interceptors=$interceptors")
     Log.d(TAG, "onCreate: analytics2Service=$analytics2Service")
+
+    testEntryPoint()
+    testEntryPoint()
+  }
+
+  private fun testEntryPoint() {
+    val context = this
+    val entryPoint =
+      EntryPointAccessors.fromApplication<ExampleContentProviderEntryPoint>(context)
+    val analytics3Service = entryPoint.analyticsService()
+    Log.d(TAG, "testEntryPoint: service3=$analytics3Service, app=${context.applicationContext}")
   }
 }
