@@ -1,9 +1,11 @@
 package com.utopia.hiltdemo
 
+import android.content.Context
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ActivityComponent
+import dagger.hilt.android.qualifiers.ActivityContext
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import javax.inject.Inject
@@ -17,7 +19,10 @@ class AnalyticsServiceImpl @Inject constructor() : AnalyticsService {
   }
 }
 
-class AnalyticsAdapter @Inject constructor(val service: AnalyticsService)
+class AnalyticsAdapter @Inject constructor(
+  @ActivityContext val context: Context,
+  val service: AnalyticsService
+)
 
 //@Module
 //@InstallIn(ActivityComponent::class)

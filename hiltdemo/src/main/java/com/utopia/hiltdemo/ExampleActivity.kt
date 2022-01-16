@@ -28,6 +28,7 @@ class ExampleActivity : AppCompatActivity() {
     setContentView(R.layout.activity_example)
 
     Log.d(TAG, "onCreate: adapter=$adapter, adapter.service=${adapter.service}")
+    Log.d(TAG, "onCreate: adapter.context=${adapter.context}, activity=$this")
     Log.d(TAG, "onCreate: service=$service")
     val interceptors = okHttpClient.interceptors().joinToString { it.javaClass.name }
     Log.d(TAG, "interceptors=$interceptors")
