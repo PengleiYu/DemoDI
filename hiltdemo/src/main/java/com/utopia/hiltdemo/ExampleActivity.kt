@@ -22,6 +22,9 @@ class ExampleActivity : AppCompatActivity() {
   @Inject
   lateinit var okHttpClient: OkHttpClient
 
+  @Inject
+  lateinit var analytics2Service: Analytics2Service
+
   companion object {
     private const val TAG = "ExampleActivity"
   }
@@ -36,5 +39,6 @@ class ExampleActivity : AppCompatActivity() {
     Log.d(TAG, "onCreate: service=$service")
     val interceptors = okHttpClient.interceptors().joinToString { it.javaClass.name }
     Log.d(TAG, "interceptors=$interceptors")
+    Log.d(TAG, "onCreate: analytics2Service=$analytics2Service")
   }
 }

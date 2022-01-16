@@ -7,9 +7,11 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ActivityComponent
 import dagger.hilt.android.qualifiers.ActivityContext
 import dagger.hilt.android.scopes.ActivityScoped
+import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import javax.inject.Inject
+import javax.inject.Singleton
 
 interface AnalyticsService {
   fun analyticsMethods()
@@ -69,3 +71,20 @@ object AnalyticsModule2 {
 class ExampleServiceImpl @Inject constructor(
   @AuthInterceptorOkHttpClient private val okHttpClient: OkHttpClient
 )
+
+interface Analytics2Service {
+  fun analyticsMethods()
+}
+
+@Module
+@InstallIn(SingletonComponent::class)
+object Analytics2Module {
+  @Singleton
+  @Provides
+  fun provideAnalytics2Service(): Analytics2Service {
+    return Retrofit.Builder()
+      .baseUrl("https://example.com")
+      .build()
+      .create(Analytics2Service::class.java)
+  }
+}
