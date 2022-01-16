@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import dagger.hilt.android.AndroidEntryPoint
+import okhttp3.OkHttpClient
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -13,6 +14,10 @@ class ExampleActivity : AppCompatActivity() {
 
   @Inject
   lateinit var service: AnalyticsService
+
+  @OtherInterceptorOkHttpClient
+  @Inject
+  lateinit var okHttpClient: OkHttpClient
 
   companion object {
     private const val TAG = "ExampleActivity"
@@ -24,5 +29,7 @@ class ExampleActivity : AppCompatActivity() {
 
     Log.d(TAG, "onCreate: adapter=$adapter, adapter.service=${adapter.service}")
     Log.d(TAG, "onCreate: service=$service")
+    val interceptors = okHttpClient.interceptors().joinToString { it.javaClass.name }
+    Log.d(TAG, "interceptors=$interceptors")
   }
 }

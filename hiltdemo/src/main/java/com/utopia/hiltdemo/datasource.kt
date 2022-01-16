@@ -4,6 +4,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ActivityComponent
+import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import javax.inject.Inject
 
@@ -28,17 +29,36 @@ class AnalyticsAdapter @Inject constructor(val service: AnalyticsService)
 //  ): AnalyticsService
 //}
 
+//@Module
+//@InstallIn(ActivityComponent::class)
+//object AnalyticsModule2 {
+//  // provides用于为接口提供第三方实现类
+//  @Provides
+//  fun provideAnalyticsService(
+//    //
+//  ): AnalyticsService {
+//    return Retrofit.Builder()
+//      .baseUrl("https://example.com")
+//      .build()
+//      .create(AnalyticsService::class.java)
+//  }
+//}
+
 @Module
 @InstallIn(ActivityComponent::class)
 object AnalyticsModule2 {
-  // provides用于为接口提供第三方实现类
   @Provides
   fun provideAnalyticsService(
-    //
+    @AuthInterceptorOkHttpClient okHttpClient: OkHttpClient
   ): AnalyticsService {
     return Retrofit.Builder()
+      .client(okHttpClient)
       .baseUrl("https://example.com")
       .build()
       .create(AnalyticsService::class.java)
   }
 }
+
+class ExampleServiceImpl @Inject constructor(
+  @AuthInterceptorOkHttpClient private val okHttpClient: OkHttpClient
+)
